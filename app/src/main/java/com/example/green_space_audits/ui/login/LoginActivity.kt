@@ -16,15 +16,19 @@ import android.widget.ProgressBar
 import android.widget.Toast
 
 import com.example.green_space_audits.R
+import com.google.firebase.auth.FirebaseAuth
+
 
 class LoginActivity : AppCompatActivity() {
 
+    private var mAuth: FirebaseAuth? = null
     private lateinit var loginViewModel: LoginViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContentView(R.layout.activity_login)
+        // Initialize Firebase Auth
+        mAuth = FirebaseAuth.getInstance();
 
         val username = findViewById<EditText>(R.id.username)
         val password = findViewById<EditText>(R.id.password)

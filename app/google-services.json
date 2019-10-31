@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "398241400816",
+    "firebase_url": "https://greenspaceaudit.firebaseio.com",
+    "project_id": "greenspaceaudit",
+    "storage_bucket": "greenspaceaudit.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:398241400816:android:fdea4927c6c36bf4923f35",
+        "android_client_info": {
+          "package_name": "com.example.green_space_audits"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "398241400816-e9vchds6vqg6jcthh9m9uv0hannsl2i5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCI6NGLlDmOwSSVoKugjY8DBO8EzUHpB3Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "398241400816-e9vchds6vqg6jcthh9m9uv0hannsl2i5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
