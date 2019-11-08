@@ -28,7 +28,7 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         // Initialize Firebase Auth
-        mAuth = FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance()
 
         val username = findViewById<EditText>(R.id.username)
         val password = findViewById<EditText>(R.id.password)
