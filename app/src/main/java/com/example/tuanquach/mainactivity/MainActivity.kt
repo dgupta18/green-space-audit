@@ -1,4 +1,4 @@
-package com.example.tuanquach.mainactivity
+package com.example.green_space_audits.mainactivity
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity

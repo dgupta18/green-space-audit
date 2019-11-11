@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.tuanquach.mainactivity">
+    package="com.example.green_space_audits.mainactivity">
 
     <!--   Mention Internet Permission required -->
     <uses-permission android:name="android.permission.INTERNET" />
