@@ -69,7 +69,6 @@ class LoginActivity : AppCompatActivity() {
                     val uid = mAuth?.uid
                     Log.d("Test", "Test")
                     val enter = Intent(this@LoginActivity, MapsActivity::class.java)
-                    intent.putExtra("uid", uid)
                     startActivity(enter)
 
                 }else{
