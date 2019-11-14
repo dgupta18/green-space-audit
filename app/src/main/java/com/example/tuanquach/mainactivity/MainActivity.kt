@@ -7,9 +7,6 @@ import android.widget.Button
 
 class MainActivity : AppCompatActivity() {
 
-
-
-
     internal var registerBtn: Button? = null
     internal var loginBtn: Button? = null
 
@@ -19,7 +16,6 @@ class MainActivity : AppCompatActivity() {
 
         registerBtn = findViewById(R.id.register)
         loginBtn = findViewById(R.id.login)
-
 
 
         registerBtn!!.setOnClickListener {
