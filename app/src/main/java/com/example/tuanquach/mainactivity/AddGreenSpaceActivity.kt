@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
 import android.widget.*
+import com.google.firebase.auth.FirebaseAuth
 
 class AddGreenSpaceActivity : AppCompatActivity() {
 
@@ -15,37 +16,60 @@ class AddGreenSpaceActivity : AppCompatActivity() {
     internal lateinit var commentET: EditText
     internal lateinit var anonButton: RadioButton
     internal lateinit var saveButton: Button
+    private lateinit var user: String
+    internal lateinit var quietRG: RadioGroup
+    internal lateinit var hazardsRG: RadioGroup
+    internal lateinit var acresET: EditText
 
-    private val quality: String
+    private val quality: Quality
         get() {
             when (qualityRG.checkedRadioButtonId) {
                 R.id.qualityLow -> {
-                    return "LOW"
+                    return Quality.LOW
                 }
                 R.id.qualityHigh -> {
-                    return "HIGH"
+                    return Quality.HIGH
                 }
                 else -> {
-                    return "MED"
+                    return Quality.MED
                 }
             }
         }
 
-    private val recreationType: String
+    private val recreationType: Recreation
         get() {
             when (recreationRG.checkedRadioButtonId) {
                 R.id.peopleRec -> {
-                    return "people"
+                    return Recreation.PEOPLEPOWERED
                 }
                 else -> {
-                    return "nature"
+                    return Recreation.NATUREBASED
                 }
             }
         }
 
-    private val isAnon: Boolean
+    private val isQuiet: Boolean
         get() {
-            return anonButton.isChecked
+            when (quietRG.checkedRadioButtonId) {
+                R.id.yesQuiet -> {
+                    return true
+                }
+                else -> {
+                    return false
+                }
+            }
+        }
+
+    private val isNearHazards: Boolean
+        get() {
+            when (hazardsRG.checkedRadioButtonId) {
+                R.id.yesHazards -> {
+                    return true
+                }
+                else -> {
+                    return false
+                }
+            }
         }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,6 +84,12 @@ class AddGreenSpaceActivity : AppCompatActivity() {
         commentET = findViewById<View>(R.id.commentET) as EditText
         anonButton = findViewById<View>(R.id.anonComment) as RadioButton
         saveButton = findViewById<View>(R.id.save) as Button
+        hazardsRG = findViewById<View>(R.id.hazardsGroup) as RadioGroup
+        quietRG = findViewById<View>(R.id.quietGroup) as RadioGroup
+        acresET = findViewById<View>(R.id.acresET) as EditText
+
+        user = FirebaseAuth.getInstance().currentUser!!.uid
+
 
         saveButton.setOnClickListener{
             save()
@@ -69,18 +99,25 @@ class AddGreenSpaceActivity : AppCompatActivity() {
     private fun save() {
         val name = nameET.text.toString()
         val comment = commentET.text.toString()
-        val author = if(anonButton.isChecked){ "Anonymous"} else {"name here"}
+//        val acres = commentET.text.toFloat()
+        // TODO: figure out how to read in acres as a float instead of string
         var commentsMap = mutableMapOf<String, String>()
 
         // check to see if a name has been provided
         if(!TextUtils.isEmpty(name)) {
             // if the user wrote a comment, then add the comment to the comments map
             if(!TextUtils.isEmpty(comment)){
-                commentsMap[author] = comment
+                if(anonButton.isChecked){
+                    commentsMap["Anonymous"] = comment
+                } else {
+                    commentsMap[user] = comment
+                }
+
             }
 
             // create a green space object
-            val newGS = GreenSpace(name, 0.toFloat(), 0.toFloat(), quality, recreationType, commentsMap)
+            // TODO: figure out how to get the lat long values
+            val newGS = GreenSpace(name, user, 0.toFloat(), 0.toFloat(), 0.toFloat(), quality, recreationType, commentsMap, isQuiet, isNearHazards)
 
             // TODO: add newGS to the database
             // I don't want to actually add anything until we decide what structure we want

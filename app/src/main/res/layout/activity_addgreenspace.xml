@@ -84,10 +84,81 @@
     </RadioGroup>
 
     <EditText
+        android:id="@+id/acresET"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal"
+        android:hint="Acres" />
+
+    <TextView
+        android:id="@+id/quiet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/title"
+        android:layout_marginTop="8dp"
+        android:text="Is this space quiet?"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <RadioGroup
+        android:id="@+id/quietGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/quiet"
+        android:orientation="horizontal" >
+
+        <RadioButton
+            android:id="@+id/yesQuiet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Yes" />
+
+        <RadioButton
+            android:id="@+id/noQuiet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="No" />
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/hazards"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/title"
+        android:layout_marginTop="8dp"
+        android:text="Is this space near any hazards?"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <RadioGroup
+        android:id="@+id/hazardsGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/hazards"
+        android:orientation="horizontal" >
+
+        <RadioButton
+            android:id="@+id/yesHazards"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Yes" />
+
+        <RadioButton
+            android:id="@+id/noHazards"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="No" />
+    </RadioGroup>
+
+    <EditText
         android:id="@+id/comment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Comment (optional)" />
+        android:hint="Comments (optional)" />
 
     <RadioButton
         android:id="@+id/anonComment"
