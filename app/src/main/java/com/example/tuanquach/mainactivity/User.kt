@@ -7,7 +7,7 @@ data class User (
     val userIsAdmin: Boolean,
     val uPoints: Int,
     val uGreenSpaces: ArrayList<String>,
-    val badges: ArrayList<String>,
-    val favorites: ArrayList<String>,
-    val checkins: MutableMap<String, ArrayList<String>>
+    val uBadges: ArrayList<String>,
+    val uFavorites: ArrayList<String>,
+    val uCheckins: MutableMap<String, ArrayList<String>>
 )
