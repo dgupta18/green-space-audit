@@ -1,4 +1,4 @@
-package com.example.tuanquach.mainactivity
+package com.example.green_space_audits.mainactivity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -76,17 +76,17 @@ class AddGreenSpaceActivity : AppCompatActivity() {
         super .onCreate(savedInstanceState)
         setContentView(R.layout.activity_addgreenspace)
 
-        nameET = findViewById<View>(R.id.nameET) as EditText
-        qualityRG = findViewById<View>(R.id.qualityGroup) as RadioGroup
-        qualityTV = findViewById<View>(R.id.quality) as TextView
-        recreationTV = findViewById<View>(R.id.recreation) as TextView
-        recreationRG = findViewById<View>(R.id.recreationGroup) as RadioGroup
-        commentET = findViewById<View>(R.id.commentET) as EditText
-        anonButton = findViewById<View>(R.id.anonComment) as RadioButton
-        saveButton = findViewById<View>(R.id.save) as Button
-        hazardsRG = findViewById<View>(R.id.hazardsGroup) as RadioGroup
-        quietRG = findViewById<View>(R.id.quietGroup) as RadioGroup
-        acresET = findViewById<View>(R.id.acresET) as EditText
+        nameET = findViewById(R.id.nameET) as EditText
+        qualityRG = findViewById(R.id.qualityGroup) as RadioGroup
+        qualityTV = findViewById(R.id.quality) as TextView
+        recreationTV = findViewById(R.id.recreation) as TextView
+        recreationRG = findViewById(R.id.recreationGroup) as RadioGroup
+        commentET = findViewById(R.id.comment) as EditText
+        anonButton = findViewById(R.id.anonComment) as RadioButton
+        saveButton = findViewById(R.id.save) as Button
+        hazardsRG = findViewById(R.id.hazardsGroup) as RadioGroup
+        quietRG = findViewById(R.id.quietGroup) as RadioGroup
+        acresET = findViewById(R.id.acresET) as EditText
 
         user = FirebaseAuth.getInstance().currentUser!!.uid
 

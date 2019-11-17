@@ -1,4 +1,4 @@
-package com.example.tuanquach.mainactivity
+package com.example.green_space_audits.mainactivity
 
 data class GreenSpace (val gsName: String,
                        val gsCreator: String,
