@@ -124,7 +124,7 @@ class AddGreenSpaceActivity : AppCompatActivity() {
 
             Toast.makeText(this, "Green space added", Toast.LENGTH_LONG).show()
 
-            // TODO: start intent to lauch another activity after green space is saved
+            // TODO: start intent to launch another activity after green space is saved
             // which activity do we want to launch?
         } else {
             Toast.makeText(this, "Please enter a name", Toast.LENGTH_LONG).show()
