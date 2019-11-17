@@ -70,7 +70,17 @@ class RegistrationActivity : AppCompatActivity() {
                     Toast.makeText(applicationContext, "Registration successful!", Toast.LENGTH_LONG).show()
                     progressBar!!.visibility = View.GONE
 
-                    val user = User(name,email,password)
+//                    val userName: String,
+//                    val userEmail: String,
+//                    val userPassword: String,
+//                    val userIsAdmin: Boolean,
+//                    val uPoints: Int,
+//                    val uGreenSpaces: ArrayList<String>,
+//                    val uBadges: ArrayList<String>,
+//                    val uFavorites: ArrayList<String>,
+//                    val uCheckins: MutableMap<String, ArrayList<String>>
+
+                    val user = User(name, email, password, false, 0, ArrayList(), ArrayList(), ArrayList(), HashMap())
                     FirebaseDatabase.getInstance().getReference("Users")
                         .child(mAuth!!.getCurrentUser()!!.getUid())
                         .setValue(user)
