@@ -89,8 +89,8 @@ class RegistrationActivity : AppCompatActivity() {
 
 
 
-//                    val intent = Intent(this@RegistrationActivity, LoginActivity::class.java)
-//                    startActivity(intent)
+                    val intent = Intent(this@RegistrationActivity, LoginActivity::class.java)
+                    startActivity(intent)
                 } else {
                     Toast.makeText(applicationContext, "Registration failed! Please try again later", Toast.LENGTH_LONG).show()
                     progressBar!!.visibility = View.GONE
