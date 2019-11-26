@@ -1,4 +1,4 @@
-package com.example.tuanquach.mainactivity
+package com.example.green_space_audits.mainactivity
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

@@ -1,4 +1,4 @@
-package com.example.tuanquach.mainactivity
+package com.example.green_space_audits.mainactivity
 
 import org.junit.Test
 
