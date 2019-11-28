@@ -80,7 +80,7 @@ class RegistrationActivity : AppCompatActivity() {
 //                    val uFavorites: ArrayList<String>,
 //                    val uCheckins: MutableMap<String, ArrayList<String>>
 
-                    val user = User(name, email, password, false, 0, ArrayList(), ArrayList(), ArrayList(), HashMap())
+                    val user = User(name, email, password, false, 0, ArrayList(), ArrayList(), ArrayList(), HashMap(), mutableMapOf<String,Comment>())
                     FirebaseDatabase.getInstance().getReference("Users")
                         .child(mAuth!!.getCurrentUser()!!.getUid())
                         .setValue(user)

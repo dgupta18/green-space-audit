@@ -26,6 +26,7 @@ class AddGreenSpaceActivity : AppCompatActivity() {
     private lateinit var gsDatabase: DatabaseReference
     private lateinit var usersDatabase: DatabaseReference
     private lateinit var username: String
+    private lateinit var userComments: MutableMap<String, Comment>
 
     private val quality: Quality
         get() {
@@ -104,6 +105,11 @@ class AddGreenSpaceActivity : AppCompatActivity() {
         usersDatabase.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 username = dataSnapshot.child(user).getValue<User>(User::class.java)!!.userName
+                if(dataSnapshot.child(user).child("uComments").value != null){
+                    userComments = dataSnapshot.child(user).child("uComments").value as MutableMap<String, Comment>
+                } else {
+                    userComments = mutableMapOf<String, Comment>()
+                }
             }
             // I'm not sure why this is necessary, but it was included in the Firebase lab
             override fun onCancelled(databaseError: DatabaseError) {
@@ -134,14 +140,21 @@ class AddGreenSpaceActivity : AppCompatActivity() {
                     // get a unique ID for the comment
                     val commentID = gsDatabase.push().key
 
+//                    val usersComments = usersDatabase.child(user).child("uComments") as MutableMap<String, Comment>
+
                     // check if the comment anonymously button is checked,
                     // create a comment object, and add it to the comments list
                     if(anonButton.isChecked){
                         val comment = Comment(user, "Anonymous", commentText)
                         commentsList[commentID!!] = comment
+                        userComments[commentID!!] = comment
+                        usersDatabase.child(user).child("uComments").setValue(userComments)
+
                     } else {
                         val comment = Comment(user, username, commentText)
                         commentsList[commentID!!] = comment
+                        userComments[commentID!!] = comment
+                        usersDatabase.child(user).child("uComments").setValue(userComments)
                     }
 
 
