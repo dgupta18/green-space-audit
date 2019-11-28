@@ -7,7 +7,7 @@ data class GreenSpace (val gsName: String,
                        val gsAcres: Float,
                        val gsQuality: Quality,
                        val gsType: Recreation,
-                       val gsComments: MutableMap<String, String>,
+                       val gsComments: ArrayList<Comment>,
                        val isQuiet: Boolean,
                        val isNearHazards: Boolean)
 
@@ -18,6 +18,3 @@ enum class Quality {
 enum class Recreation {
     PEOPLEPOWERED, NATUREBASED
 }
-
-// TODO: do we want to change comments to a map with the user who commented as the key and the comment as the value?
-// I don't know if kotlin maps have mutable length or not

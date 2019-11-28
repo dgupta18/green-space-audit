@@ -7,24 +7,25 @@ import android.text.TextUtils
 import android.widget.*
 import com.google.firebase.auth.FirebaseAuth
 import android.util.Log
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.*
 
 class AddGreenSpaceActivity : AppCompatActivity() {
 
-    internal lateinit var nameET: EditText
-    internal lateinit var qualityTV: TextView
-    internal lateinit var qualityRG: RadioGroup
-    internal lateinit var recreationTV: TextView
-    internal lateinit var recreationRG: RadioGroup
-    internal lateinit var commentET: EditText
-    internal lateinit var anonButton: RadioButton
-    internal lateinit var saveButton: Button
+    private lateinit var nameET: EditText
+    private lateinit var qualityTV: TextView
+    private lateinit var qualityRG: RadioGroup
+    private lateinit var recreationTV: TextView
+    private lateinit var recreationRG: RadioGroup
+    private lateinit var commentET: EditText
+    private lateinit var anonButton: RadioButton
+    private lateinit var saveButton: Button
     private lateinit var user: String
-    internal lateinit var quietRG: RadioGroup
-    internal lateinit var hazardsRG: RadioGroup
-    internal lateinit var acresET: EditText
-    internal lateinit var database: DatabaseReference
+    private lateinit var quietRG: RadioGroup
+    private lateinit var hazardsRG: RadioGroup
+    private lateinit var acresET: EditText
+    private lateinit var gsDatabase: DatabaseReference
+    private lateinit var usersDatabase: DatabaseReference
+    private lateinit var username: String
 
     private val quality: Quality
         get() {
@@ -93,11 +94,21 @@ class AddGreenSpaceActivity : AppCompatActivity() {
         quietRG = findViewById<RadioGroup>(R.id.quietGroup)
         acresET = findViewById<EditText>(R.id.acresET)
 
-        // TODO: What path do we want?
-        database = FirebaseDatabase.getInstance().getReference("GreenSpaces")
+
+        gsDatabase = FirebaseDatabase.getInstance().getReference("GreenSpaces")
+        usersDatabase = FirebaseDatabase.getInstance().getReference("Users")
 
         user = FirebaseAuth.getInstance().currentUser!!.uid
 
+        // use an addValueListener to get the current user's username
+        usersDatabase.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                username = dataSnapshot.child(user).getValue<User>(User::class.java)!!.userName
+            }
+            // I'm not sure why this is necessary, but it was included in the Firebase lab
+            override fun onCancelled(databaseError: DatabaseError) {
+            }
+        })
 
         saveButton.setOnClickListener{
             save()
@@ -106,46 +117,59 @@ class AddGreenSpaceActivity : AppCompatActivity() {
 
     private fun save() {
         val name = nameET.text.toString()
-        val comment = commentET.text.toString()
+        val commentText = commentET.text.toString()
         val acresString = acresET.text.toString()
-        var commentsMap = mutableMapOf<String, String>()
+        var commentsList = arrayListOf<Comment>()
 
         // check to see if a name has been provided
         if(!TextUtils.isEmpty(name)) {
 
             // check to see if the acreage has been provided
             if(!TextUtils.isEmpty(acresString)) {
+                // convert the acres from a string to a float
                 val acres = acresString.toFloat()
-                // if the user wrote a comment, then add the comment to the comments map
-                if(!TextUtils.isEmpty(comment)){
+
+                // check to see if the user left a comment
+                if(!TextUtils.isEmpty(commentText)){
+                    // get a unique ID for the comment
+                    val commentID = gsDatabase.push().key
+
+                    // check if the comment anonymously button is checked,
+                    // create a comment object, and add it to the comments list
                     if(anonButton.isChecked){
-                        commentsMap["Anonymous"] = comment
+                        val comment = Comment(commentID!!, user, "Anonymous", commentText)
+                        commentsList.add(comment)
                     } else {
-                        commentsMap[user] = comment
+                        val comment = Comment(commentID!!, user, username, commentText)
+                        commentsList.add(comment)
                     }
+
 
                 }
 
+
                 // create a green space object
                 // TODO: figure out how to get the lat long values
-                val newGS = GreenSpace(name, user, 0.toFloat(), 0.toFloat(), acres, quality, recreationType, commentsMap, isQuiet, isNearHazards)
+                // use the users location ^
+                val newGS = GreenSpace(name, user, 0.toFloat(), 0.toFloat(), acres, quality, recreationType, commentsList, isQuiet, isNearHazards)
 
                 // TODO: add newGS to the database
                 // I don't want to actually add anything until we decide what structure we want
-                Log.i("NEW GREEN SPACE", "$newGS")
+                Log.d("NEW GREEN SPACE", "GS: $newGS")
+                Log.d("NEW GREEN SPACE", "user: " + usersDatabase.child(user))
 
                 //getting a unique id using push().getKey() method
                 //it will create a unique id and we will use it as the primary key for our green space
-                val greenSpaceId = database.push().key
+                val greenSpaceID = gsDatabase.push().key
 
                 // add the new green space to the database
-                database.child(greenSpaceId!!).setValue(newGS)
+                gsDatabase.child(greenSpaceID!!).setValue(newGS)
 
                 Toast.makeText(this, "Green space added", Toast.LENGTH_LONG).show()
 
                 // TODO: which activity do we want to launch?
-                val enter = Intent(this@AddGreenSpaceActivity, MapsActivity::class.java)
-                startActivity(enter)
+                val enter = Intent(this@AddGreenSpaceActivity, DisplayGreenSpaceActivity::class.java)
+//                startActivity(enter)
             } else {
                 Toast.makeText(this, "Please enter the acreage", Toast.LENGTH_LONG).show()
             }
