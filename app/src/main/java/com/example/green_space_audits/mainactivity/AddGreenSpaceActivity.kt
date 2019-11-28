@@ -119,7 +119,7 @@ class AddGreenSpaceActivity : AppCompatActivity() {
         val name = nameET.text.toString()
         val commentText = commentET.text.toString()
         val acresString = acresET.text.toString()
-        var commentsList = arrayListOf<Comment>()
+        var commentsList = mutableMapOf<String, Comment>()
 
         // check to see if a name has been provided
         if(!TextUtils.isEmpty(name)) {
@@ -137,11 +137,11 @@ class AddGreenSpaceActivity : AppCompatActivity() {
                     // check if the comment anonymously button is checked,
                     // create a comment object, and add it to the comments list
                     if(anonButton.isChecked){
-                        val comment = Comment(commentID!!, user, "Anonymous", commentText)
-                        commentsList.add(comment)
+                        val comment = Comment(user, "Anonymous", commentText)
+                        commentsList[commentID!!] = comment
                     } else {
-                        val comment = Comment(commentID!!, user, username, commentText)
-                        commentsList.add(comment)
+                        val comment = Comment(user, username, commentText)
+                        commentsList[commentID!!] = comment
                     }
 
 

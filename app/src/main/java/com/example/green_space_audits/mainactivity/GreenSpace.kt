@@ -7,7 +7,7 @@ data class GreenSpace (val gsName: String,
                        val gsAcres: Float,
                        val gsQuality: Quality,
                        val gsType: Recreation,
-                       val gsComments: ArrayList<Comment>,
+                       val gsComments: MutableMap<String, Comment>,
                        val isQuiet: Boolean,
                        val isNearHazards: Boolean)
 
