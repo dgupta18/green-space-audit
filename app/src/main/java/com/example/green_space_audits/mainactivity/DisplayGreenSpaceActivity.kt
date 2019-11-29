@@ -40,7 +40,16 @@ class DisplayGreenSpaceActivity : AppCompatActivity() {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 nameTV.text = dataSnapshot.child("-Luk55Tvcj5CjArCxliA").getValue<GreenSpace>(GreenSpace::class.java)!!.gsName
                 acresTV.text = dataSnapshot.child("-Luk55Tvcj5CjArCxliA").getValue<GreenSpace>(GreenSpace::class.java)!!.gsAcres.toString()
-                qualityTV.text = dataSnapshot.child("-Luk55Tvcj5CjArCxliA").getValue<GreenSpace>(GreenSpace::class.java)!!.gsQuality.displayStr
+
+                val qual = (dataSnapshot.child("-Luk55Tvcj5CjArCxliA").getValue<GreenSpace>(GreenSpace::class.java)!!.gsAvgQuality + 0.5).toInt()
+                if(qual == 1){
+                    qualityTV.text = "Low"
+                } else if(qual == 2) {
+                    qualityTV.text = "Medium"
+                } else {
+                    qualityTV.text = "High"
+                }
+
                 typeTV.text = dataSnapshot.child("-Luk55Tvcj5CjArCxliA").getValue<GreenSpace>(GreenSpace::class.java)!!.gsType.displayStr
 
                 if(dataSnapshot.child("-Luk55Tvcj5CjArCxliA").getValue<GreenSpace>(GreenSpace::class.java)!!.isQuiet) {

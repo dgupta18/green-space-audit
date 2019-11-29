@@ -164,7 +164,7 @@ class AddGreenSpaceActivity : AppCompatActivity() {
                 // create a green space object
                 // TODO: figure out how to get the lat long values
                 // use the users location ^
-                val newGS = GreenSpace(name, user, 0.toFloat(), 0.toFloat(), acres, quality, recreationType, commentsList, isQuiet, isNearHazards)
+                val newGS = GreenSpace(name, user, 0.toFloat(), 0.toFloat(), acres, (quality.ordinal + 1).toFloat(), 1, recreationType, commentsList, isQuiet, isNearHazards)
 
                 // TODO: add newGS to the database
                 // I don't want to actually add anything until we decide what structure we want
