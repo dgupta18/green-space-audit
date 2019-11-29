@@ -72,7 +72,7 @@ class RegistrationActivity : AppCompatActivity() {
 
 
 
-                    val user = User(name, email, password, false, 0, ArrayList(), ArrayList(), ArrayList(), HashMap())
+                    val user = User(name, email, password, false, 0, ArrayList(), ArrayList(), ArrayList(), HashMap(), mutableMapOf<String,Comment>())
                     FirebaseDatabase.getInstance().getReference("Users")
                         .child(mAuth!!.getCurrentUser()!!.getUid())
                         .setValue(user)
@@ -81,8 +81,8 @@ class RegistrationActivity : AppCompatActivity() {
 
 
 
-//                    val intent = Intent(this@RegistrationActivity, LoginActivity::class.java)
-//                    startActivity(intent)
+                    val intent = Intent(this@RegistrationActivity, LoginActivity::class.java)
+                    startActivity(intent)
                 } else {
                     Toast.makeText(applicationContext, "Registration failed! Please try again later", Toast.LENGTH_LONG).show()
                     progressBar!!.visibility = View.GONE
