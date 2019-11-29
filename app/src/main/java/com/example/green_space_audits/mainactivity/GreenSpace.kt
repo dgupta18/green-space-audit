@@ -5,14 +5,15 @@ data class GreenSpace (val gsName: String = "",
                        val gsLat: Float = 0.toFloat(),
                        val gsLong: Float = 0.toFloat(),
                        val gsAcres: Float = 0.toFloat(),
-                       val gsQuality: Quality = Quality.LOW,
+                       val gsAvgQuality: Float = 0.toFloat(),
+                       val numRankings: Int = 0,
                        val gsType: Recreation = Recreation.NATUREBASED,
                        val gsComments: MutableMap<String, Comment> = mutableMapOf<String, Comment>(),
                        val isQuiet: Boolean = false,
                        val isNearHazards: Boolean = false)
 
-enum class Quality(val displayStr: String) {
-    LOW("Low"), MED("Medium"), HIGH("High")
+enum class Quality {
+    LOW, MED, HIGH
 
 }
 
